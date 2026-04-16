@@ -1,0 +1,5 @@
+{
+  "installCommand": "cd ../.. && npm ci",
+  "buildCommand": "cd ../.. && npm run build --workspace=@lenus/shared && npm run build --workspace=web",
+  "framework": "nextjs"
+}

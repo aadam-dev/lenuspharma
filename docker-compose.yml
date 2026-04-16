@@ -1,0 +1,16 @@
+# Local PostgreSQL for Lenus API (optional — replace DATABASE_URL in apps/api/.env)
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lenus
+      POSTGRES_PASSWORD: lenus
+      POSTGRES_DB: lenus_pharmacy
+    ports:
+      - "5432:5432"
+    volumes:
+      - lenus_pg:/var/lib/postgresql/data
+
+volumes:
+  lenus_pg:

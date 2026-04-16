@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StaffRole {
+  admin
+  staff
+  pharmacist
+}
+
+model StaffUser {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         StaffRole     @default(staff)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  pomApprovals PomApproval[]
+}
+
+model Branch {
+  id String    @id @default(cuid())
+  name         String
+  slug         String    @unique
+  address      String
+  phone        String
+  ghanaPostGps String
+  lat          Float?
+  lng          Float?
+  createdAt    DateTime  @default(now())
+  orders       Order[]
+  products     Product[]
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  price       Decimal     @db.Decimal(12, 2)
+  category    String
+  type        String // OTC | POM
+  imageUrl    String?
+  stock       Int?
+  branchId    String?
+  branch      Branch?     @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  createdAt   DateTime    @default(now())
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id String      @id @default(cuid())
+  guestName             String
+  guestPhone            String
+  guestEmail            String?
+  ghanaPostGps          String
+  addressLine1          String
+  area                  String
+  region                String
+  consentDataProcessing Boolean
+  /// Fulfillment lifecycle: pending_payment, paid, awaiting_pharmacist, processing, dispatched, delivered, cancelled, pharmacist_rejected
+  status                String      @default("pending_payment")
+  /// Payment reconciliation: pending, paid, failed, refunded
+  paymentStatus         String      @default("pending")
+  deliveryFee           Decimal?    @db.Decimal(12, 2)
+  paystackReference     String?     @unique
+  branchId              String
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  branch                Branch      @relation(fields: [branchId], references: [id])
+  items                 OrderItem[]
+  payments              Payment[]
+  paymentEvents         PaymentEvent[]
+  pomApprovals          PomApproval[]
+  notifications         NotificationLog[]
+
+  @@index([status, createdAt])
+  @@index([branchId])
+}
+
+model OrderItem {
+  id           String   @id @default(cuid())
+  orderId      String
+  productId    String
+  quantity     Int
+  priceAtOrder Decimal  @db.Decimal(12, 2)
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product  @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id         String    @id @default(cuid())
+  orderId    String
+  order      Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  provider   String    @default("paystack")
+  reference  String    @unique
+  accessCode String?
+  amount     Int // smallest currency unit (pesewas for GHS)
+  currency   String    @default("GHS")
+  status     String    @default("pending")
+  paidAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  events     PaymentEvent[]
+}
+
+model PaymentEvent {
+  id             String   @id @default(cuid())
+  paymentId      String?
+  payment        Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  eventType      String
+  idempotencyKey String   @unique
+  payload        Json
+  createdAt      DateTime @default(now())
+}
+
+model PomApproval {
+  id           String    @id @default(cuid())
+  orderId      String
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  pharmacistId String
+  pharmacist   StaffUser @relation(fields: [pharmacistId], references: [id])
+  decision     String
+  notes        String?
+  createdAt    DateTime  @default(now())
+
+  @@index([orderId])
+}
+
+model NotificationLog {
+  id               String   @id @default(cuid())
+  orderId          String?
+  order            Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  channel          String
+  recipient        String
+  body             String
+  status           String   @default("pending")
+  providerResponse String?
+  createdAt        DateTime @default(now())
+
+  @@index([orderId])
+}

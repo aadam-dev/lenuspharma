@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks detect --source . --config .gitleaks.toml --redact --verbose
+else
+  echo "WARNING: gitleaks not installed locally — skipping hook (CI still enforces)."
+  echo "   Install: https://github.com/gitleaks/gitleaks#installing"
+fi

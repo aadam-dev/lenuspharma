@@ -1,0 +1,22 @@
+# Lenus Pharmacy — secret scanning baseline (gitleaks)
+# https://github.com/gitleaks/gitleaks
+
+title = "Lenus gitleaks config"
+
+[extend]
+# Use default ruleset; override paths below
+useDefault = true
+
+[allowlist]
+description = "Reduce noise for example templates only"
+paths = [
+ '''\.gitleaks\.toml''',
+  '''\.env\.example$''',
+  '''\.env\.local\.example$''',
+  '''apps/api/\.env\.example$''',
+  '''apps/web/\.env\.local\.example$''',
+]
+regexes = [
+  '''example\.com''',
+  '''sk_test_xxxxx''',
+]

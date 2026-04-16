@@ -1,0 +1,25 @@
+{
+  "name": "lenus-pharmacy",
+  "private": true,
+  "packageManager": "npm@10.0.0",
+  "scripts": {
+    "build": "turbo build",
+    "postinstall": "npm run build --workspace=@lenus/shared 2>/dev/null || true",
+    "prepare": "husky",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "secret-scan": "gitleaks detect --source . --config .gitleaks.toml --redact --verbose",
+    "db:generate": "turbo db:generate",
+    "db:migrate": "turbo db:migrate",
+    "db:seed": "turbo db:seed",
+    "verify:products": "node scripts/verify-products.mjs"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "turbo": "^2.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
