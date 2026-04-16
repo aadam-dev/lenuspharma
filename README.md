@@ -2,7 +2,7 @@
 
 A compliant, mobile-first e-commerce platform for **Lenus Pharma Ltd** (Lakeside, Botwe 3rd Gate, Madina). Built for Ghana: guest checkout, GhanaPostGPS, NEPP seal, and prescription orders via WhatsApp.
 
-**Spec:** Full requirements and internal docs live under `docs/` (that folder is **gitignored**; keep your copy locally or in private storage).
+**Spec:** Internal specs stay in local `docs/` (untracked except [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)). **Deploy / CI / Vercel:** see that deployment guide.
 
 ## Stack
 
@@ -63,7 +63,7 @@ A compliant, mobile-first e-commerce platform for **Lenus Pharma Ltd** (Lakeside
 
    The seed creates three branches (Lakeside Estates, Botwe 3rd Gate, Madina), typical Ghanaian pharmacy OTC/POM products, and sample orders for testing.
 
-   **Production deploy:** use `apps/api/.env.example` and Vercel/hosting dashboards for secrets. Maintain a local `docs/DEPLOYMENT.md` if your team uses it (not in this repository).
+   **Production deploy:** see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) and `apps/api/.env.example`.
 
 5. **Run**
 
