@@ -30,6 +30,10 @@ Thumbs.db
 npm-debug.log*
 pnpm-debug.log*
 
+# Internal / client documentation (local only; not versioned)
+docs/
+
 # Prisma local DB
 apps/api/prisma/dev.db
 apps/api/prisma/dev.db-journal
+*.bak
