@@ -18,8 +18,8 @@ The API is **not** deployed as a default Vercel serverless app; run it as a **lo
 
 ### CI (`.github/workflows/ci.yml`)
 
-- **Gitleaks** — secret scan on the full history for each push/PR.
-- **Build** — `npm ci`, build `shared`, `api`, `web`, then lint.
+- **Gitleaks** — the workflow installs the **open-source Gitleaks CLI** (not `gitleaks-action`), so it does not require a commercial org license. It scans the full git history on each push/PR.
+- **Build** — `npm ci`, build `shared`, `api`, `web`, then lint. **`HUSKY=0`** and skipping `prepare` when `CI=true` avoid Husky breaking installs on GitHub.
 
 If **Gitleaks** fails, check the Actions log for the file/rule. Adjust [`.gitleaks.toml`](../.gitleaks.toml) allowlists only for **non-secret** templates (e.g. `.env.example`), not for real keys.
 
