@@ -5,10 +5,11 @@ import {
   pomApprovalSchema,
   staffLoginSchema,
 } from "@lenus/shared";
-import { StaffRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { prisma } from "../db";
 import { notifyOrderStatusChange } from "../services/notificationService";
+
+type StaffRole = "admin" | "staff" | "pharmacist";
 
 function assertRole(role: string, allowed: StaffRole[]): void {
   if (!allowed.includes(role as StaffRole)) {
@@ -80,7 +81,7 @@ export async function adminRoutes(app: FastifyInstance) {
 
     protectedInstance.patch<{ Params: { id: string } }>("/orders/:id", async (request, reply) => {
       const user = request.user as { role: string };
-      assertRole(user.role, [StaffRole.admin, StaffRole.staff]);
+      assertRole(user.role, ["admin", "staff"]);
 
       const parsed = adminOrderPatchSchema.safeParse(request.body);
       if (!parsed.success) {
@@ -103,7 +104,7 @@ export async function adminRoutes(app: FastifyInstance) {
       "/orders/:id/pom-approval",
       async (request, reply) => {
         const user = request.user as { sub: string; role: string };
-        assertRole(user.role, [StaffRole.admin, StaffRole.pharmacist]);
+        assertRole(user.role, ["admin", "pharmacist"]);
 
         const parsed = pomApprovalSchema.safeParse(request.body);
         if (!parsed.success) {
@@ -144,9 +145,30 @@ export async function adminRoutes(app: FastifyInstance) {
       }
     );
 
+    protectedInstance.get("/products", async (request, reply) => {
+      const q = request.query as { q?: string; category?: string; type?: string };
+      const products = await prisma.product.findMany({
+        where: {
+          ...(q.q
+            ? {
+                OR: [
+                  { name: { contains: q.q, mode: "insensitive" } },
+                  { category: { contains: q.q, mode: "insensitive" } },
+                ],
+              }
+            : {}),
+          ...(q.category ? { category: q.category } : {}),
+          ...(q.type ? { type: q.type } : {}),
+        },
+        orderBy: { name: "asc" },
+        take: 500,
+      });
+      return reply.send(products);
+    });
+
     protectedInstance.patch<{ Params: { id: string } }>("/products/:id/stock", async (request, reply) => {
       const user = request.user as { role: string };
-      assertRole(user.role, [StaffRole.admin, StaffRole.staff]);
+      assertRole(user.role, ["admin", "staff"]);
 
       const parsed = adminStockPatchSchema.safeParse(request.body);
       if (!parsed.success) {
@@ -173,7 +195,7 @@ export async function adminRoutes(app: FastifyInstance) {
 
     protectedInstance.get("/reports/summary", async (request, reply) => {
       const user = request.user as { role: string };
-      assertRole(user.role, [StaffRole.admin, StaffRole.staff, StaffRole.pharmacist]);
+      assertRole(user.role, ["admin", "staff", "pharmacist"]);
 
       const q = request.query as { from?: string; to?: string };
       const from = q.from ? new Date(q.from) : new Date(Date.now() - 7 * 86400000);

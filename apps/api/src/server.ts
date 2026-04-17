@@ -36,8 +36,10 @@ async function main() {
     secret: jwtSecret ?? "dev-only-change-me",
   });
 
+  const corsOrigin = process.env.CORS_ORIGIN;
   await app.register(cors, {
-    origin: process.env.CORS_ORIGIN ?? true,
+    origin: corsOrigin ? corsOrigin.split(",").map((o) => o.trim()) : false,
+    credentials: true,
   });
 
   await app.register(rateLimit, {

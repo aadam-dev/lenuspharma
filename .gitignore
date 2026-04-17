@@ -8,6 +8,9 @@ dist
 out
 .turbo
 
+# Vercel CLI (local link state; use dashboard or `vercel link` per machine)
+.vercel
+
 # Env (never commit secrets)
 .env
 .env.*

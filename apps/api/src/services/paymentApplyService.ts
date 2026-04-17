@@ -1,4 +1,3 @@
-import type { Prisma } from "@prisma/client";
 import { prisma } from "../db";
 import { notifyOrderStatusChange } from "./notificationService";
 
@@ -10,20 +9,23 @@ export async function applyPaymentSuccess(params: {
   reference: string;
   idempotencyKey: string;
   eventType: string;
-  payload: Prisma.InputJsonValue;
+  payload: object;
 }): Promise<{ alreadyApplied: boolean }> {
-  const existing = await prisma.paymentEvent.findUnique({
-    where: { idempotencyKey: params.idempotencyKey },
-  });
-  if (existing) {
-    return { alreadyApplied: true };
-  }
-
   let shouldNotify = false;
   let notifyPhone = "";
   let notifyId = "";
+  let alreadyApplied = false;
 
   await prisma.$transaction(async (tx) => {
+    // Idempotency check inside the transaction to prevent race between webhook + verify
+    const existing = await tx.paymentEvent.findUnique({
+      where: { idempotencyKey: params.idempotencyKey },
+    });
+    if (existing) {
+      alreadyApplied = true;
+      return;
+    }
+
     const order = await tx.order.findUnique({
       where: { id: params.orderId },
       include: { items: true },
@@ -96,6 +98,8 @@ export async function applyPaymentSuccess(params: {
     notifyPhone = order.guestPhone;
     notifyId = order.id;
   });
+
+  if (alreadyApplied) return { alreadyApplied: true };
 
   if (shouldNotify) {
     const updated = await prisma.order.findUnique({ where: { id: notifyId } });

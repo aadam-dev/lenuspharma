@@ -7,6 +7,14 @@ function apiUrl(path: string): string {
 }
 
 const TOKEN_KEY = "lenus_admin_jwt";
+const USER_KEY = "lenus_admin_user";
+
+export interface AdminUser {
+  id: string;
+  email: string;
+  role: string;
+  name: string;
+}
 
 export function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -17,6 +25,27 @@ export function setAdminToken(token: string | null): void {
   if (typeof window === "undefined") return;
   if (token) sessionStorage.setItem(TOKEN_KEY, token);
   else sessionStorage.removeItem(TOKEN_KEY);
+}
+
+export function getAdminUser(): AdminUser | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(USER_KEY);
+    return raw ? (JSON.parse(raw) as AdminUser) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function setAdminUser(user: AdminUser | null): void {
+  if (typeof window === "undefined") return;
+  if (user) sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  else sessionStorage.removeItem(USER_KEY);
+}
+
+export function clearAdminSession(): void {
+  setAdminToken(null);
+  setAdminUser(null);
 }
 
 async function adminFetch(path: string, init: RequestInit = {}): Promise<Response> {
@@ -32,7 +61,7 @@ async function adminFetch(path: string, init: RequestInit = {}): Promise<Respons
 
 export async function adminLogin(email: string, password: string): Promise<{
   token: string;
-  user: { id: string; email: string; role: string; name: string };
+  user: AdminUser;
 }> {
   const res = await adminFetch("/auth/login", {
     method: "POST",
@@ -42,7 +71,9 @@ export async function adminLogin(email: string, password: string): Promise<{
     const data = await res.json().catch(() => ({}));
     throw new Error((data as { error?: string }).error ?? "Login failed");
   }
-  return res.json();
+  const result = await res.json();
+  setAdminUser(result.user);
+  return result;
 }
 
 export async function adminListOrders(status?: string): Promise<unknown[]> {
@@ -85,6 +116,19 @@ export async function adminPomApproval(
     const data = await res.json().catch(() => ({}));
     throw new Error((data as { error?: string }).error ?? "Approval failed");
   }
+  return res.json();
+}
+
+export async function adminGetAllProducts(params?: {
+  q?: string;
+  category?: string;
+  type?: string;
+}): Promise<unknown[]> {
+  const search = new URLSearchParams(
+    Object.entries(params ?? {}).filter(([, v]) => v != null && v !== "") as [string, string][]
+  ).toString();
+  const res = await adminFetch(`/products${search ? `?${search}` : ""}`);
+  if (!res.ok) throw new Error("Failed to load products");
   return res.json();
 }
 
