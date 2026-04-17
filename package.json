@@ -5,7 +5,7 @@
   "scripts": {
     "build": "turbo build",
     "postinstall": "npm run build --workspace=@lenus/shared 2>/dev/null || true",
-    "prepare": "node -e \"if (process.env.CI === 'true') process.exit(0)\" && husky",
+    "prepare": "node -e \"if (process.env.CI) process.exit(0)\" && husky",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "secret-scan": "gitleaks detect --source . --config .gitleaks.toml --redact --verbose",
