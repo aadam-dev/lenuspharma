@@ -32,9 +32,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 175 84% 32%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
     --font-sans: "Inter", system-ui, sans-serif;
+    /* Display falls back to sans; if a display font is added later it gets used automatically. */
+    --font-display: "Inter", system-ui, sans-serif;
   }
 
   .dark {
@@ -72,15 +74,171 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  /* Tabular numbers for stats and prices */
+  .tabular-nums,
+  .font-tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Selection color matches brand */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+  }
+
+  /* Custom scrollbar (subtle, brand-aware) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--secondary));
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.4);
   }
 }
 
-/* Custom Utilities for Glassmorphism */
-@layer utilities {
+@layer components {
+  /* Aurora background — a soft animated mesh used in hero & section backdrops */
+  .aurora-bg {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(135deg, #fdfcfa 0%, #f0fdfa 60%, #fff5f0 100%);
+  }
+  .aurora-bg::before,
+  .aurora-bg::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(60px);
+    opacity: 0.75;
+  }
+  .aurora-bg::before {
+    background:
+      radial-gradient(circle at 30% 20%, hsl(175 84% 70% / 0.45), transparent 45%),
+      radial-gradient(circle at 70% 70%, hsl(160 70% 70% / 0.35), transparent 50%);
+    animation: aurora 18s ease-in-out infinite;
+  }
+  .aurora-bg::after {
+    background:
+      radial-gradient(circle at 80% 20%, hsl(15 90% 78% / 0.35), transparent 50%),
+      radial-gradient(circle at 20% 80%, hsl(40 70% 85% / 0.4), transparent 50%);
+    animation: aurora 24s ease-in-out infinite reverse;
+  }
+
+  /* Animated gradient text */
+  .text-gradient-brand {
+    background-image: linear-gradient(
+      90deg,
+      hsl(175 84% 32%) 0%,
+      hsl(160 70% 40%) 35%,
+      hsl(175 84% 32%) 70%,
+      hsl(15 90% 60%) 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Frosted-glass surface */
   .glass {
-    @apply bg-opacity-80 backdrop-blur-md border-b border-white/20;
+    background-color: rgb(255 255 255 / 0.7);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgb(255 255 255 / 0.4);
+  }
+
+  /* Soft elevated card */
+  .card-soft {
+    @apply rounded-3xl bg-white/80 backdrop-blur-sm border border-white/60 shadow-soft-lg;
+  }
+
+  /* Pulse ring used by floating CTAs */
+  .pulse-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0.4;
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    z-index: -1;
   }
 }
 
+@layer utilities {
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-aurora,
+    .animate-float,
+    .animate-float-slow,
+    .animate-shimmer,
+    .animate-marquee,
+    .animate-pulse-ring,
+    .animate-gradient-x,
+    .aurora-bg::before,
+    .aurora-bg::after {
+      animation: none !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Hide scrollbar but keep scroll */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mask fade for marquee edges */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  /* Perspective container for 3D cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
