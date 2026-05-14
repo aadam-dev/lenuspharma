@@ -13,8 +13,8 @@ interface AnimatedCounterProps {
 
 /**
  * Counts up from 0 → value when scrolled into view (one-shot).
- * Uses IntersectionObserver + rAF — no framer-motion dependency for this
- * tiny piece, keeping bundle slim.
+ * Uses IntersectionObserver + rAF (no framer-motion dependency for this
+ * tiny piece, keeping the bundle slim).
  */
 export function AnimatedCounter({
   value,

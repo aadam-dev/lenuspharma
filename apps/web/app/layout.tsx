@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Lenus Pharmacy | Order Online — Botwe & Lakeside Estates",
+  title: "Lenus Pharmacy | Order Online in Botwe & Lakeside Estates",
   description:
     "Lenus Pharma Ltd. Order OTC medicines online. Prescription? Chat on WhatsApp. Pick up at Botwe 3rd Gate or Lakeside Estates. NEPP registered.",
 };

@@ -55,7 +55,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Strip — refined */}
+      {/* Features Strip */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container px-4 mx-auto">
           <RevealOnScroll className="text-center max-w-2xl mx-auto mb-12">
@@ -89,10 +89,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How it works — new bento section */}
+      {/* How it works */}
       <HowItWorks />
 
-      {/* Categories — refined cards */}
+      {/* Categories */}
       <section className="py-24 bg-white">
         <div className="container px-4 mx-auto">
           <RevealOnScroll>
@@ -134,7 +134,7 @@ export default function HomePage() {
               );
             })}
 
-            {/* Prescription card — special treatment */}
+            {/* Prescription card */}
             <RevealOnScroll delay={0.25}>
               <a
                 href={whatsappUrl}
@@ -160,7 +160,7 @@ export default function HomePage() {
 
       <BranchLocator />
 
-      {/* CTA Section — refined with aurora */}
+      {/* CTA Section */}
       <section className="relative py-24 md:py-32 overflow-hidden bg-secondary-900 text-white">
         <div className="absolute inset-0">
           <div className="absolute -top-40 -left-40 h-[40rem] w-[40rem] rounded-full bg-primary/30 blur-3xl" />

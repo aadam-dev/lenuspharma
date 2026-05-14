@@ -9,7 +9,7 @@ export function WhatsAppCTA() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 flex min-h-[56px] min-w-[56px] items-center gap-2 rounded-2xl bg-green-600 px-4 py-3 text-white shadow-card-hover transition hover:bg-green-700 hover:shadow-card-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:min-w-0 sm:px-5"
-      aria-label="Order with prescription — Chat on WhatsApp"
+      aria-label="Order with prescription: Chat on WhatsApp"
     >
       <svg
         className="h-7 w-7 flex-shrink-0 sm:h-6 sm:w-6"

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Privacy Policy | Lenus Pharmacy",
-  description: "Privacy policy for Lenus Pharma Ltd — data protection and your rights under Ghana Data Protection Act 843.",
+  description: "Privacy policy for Lenus Pharma Ltd. Data protection and your rights under Ghana Data Protection Act 843.",
 };
 
 export default function PrivacyPage() {

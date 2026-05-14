@@ -6,7 +6,7 @@ import { getWhatsAppUrl } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 /**
- * Floating WhatsApp button — appears after the user has scrolled
+ * Floating WhatsApp button. Appears after the user has scrolled
  * past the hero. Mobile-friendly tap target (56px), pulse ring for affordance.
  * No layout shift: position: fixed.
  */

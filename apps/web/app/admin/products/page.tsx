@@ -359,7 +359,7 @@ export default function AdminProductsPage() {
                           <input
                             type="number"
                             min={0}
-                            placeholder={product.stock?.toString() ?? "—"}
+                            placeholder={product.stock?.toString() ?? "0"}
                             value={edits[product.id] ?? ""}
                             onChange={(e) =>
                               setEdits((prev) => ({ ...prev, [product.id]: e.target.value }))

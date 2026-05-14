@@ -117,7 +117,7 @@
 }
 
 @layer components {
-  /* Aurora background — a soft animated mesh used in hero & section backdrops */
+  /* Aurora background: soft animated mesh used in hero and section backdrops */
   .aurora-bg {
     position: relative;
     isolation: isolate;

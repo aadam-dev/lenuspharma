@@ -31,7 +31,7 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold text-foreground mb-3">Our mission</h2>
           <p className="text-muted-foreground leading-relaxed">
             To make quality medicines and healthcare advice accessible to our
-            community—whether you order online for delivery, pick up at a branch,
+            community, whether you order online for delivery, pick up at a branch,
             or need prescription items via WhatsApp. We combine convenience with
             regulatory compliance and pharmacist-led care.
           </p>

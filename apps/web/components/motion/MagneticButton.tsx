@@ -12,7 +12,7 @@ interface MagneticButtonProps {
 /**
  * A wrapper that gently pulls its child toward the cursor on hover.
  * Disabled on touch devices (no hover capability).
- * Uses transform on a ref directly — no React state, no re-renders.
+ * Uses transform on a ref directly (no React state, no re-renders).
  */
 export function MagneticButton({
   children,

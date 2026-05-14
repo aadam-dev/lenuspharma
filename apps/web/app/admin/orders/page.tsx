@@ -359,7 +359,7 @@ export default function AdminOrdersPage() {
                       </span>
                     </td>
                     <td className="px-5 py-4 text-gray-500 whitespace-nowrap text-xs">
-                      {order.branch?.name ?? "—"}
+                      {order.branch?.name ?? "N/A"}
                     </td>
                     <td className="px-5 py-4 text-gray-400 whitespace-nowrap text-xs">
                       {new Date(order.createdAt).toLocaleDateString("en-GH", {

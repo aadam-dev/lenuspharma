@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
             <Pill className="h-7 w-7 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Lenus Admin</h1>
-          <p className="text-sm text-gray-500 mt-1">Staff Portal — Authorized personnel only</p>
+          <p className="text-sm text-gray-500 mt-1">Staff Portal: Authorized personnel only</p>
         </div>
 
         {/* Card */}

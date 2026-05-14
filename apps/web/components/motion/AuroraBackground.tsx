@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 /**
  * Soft animated gradient mesh used as a section backdrop.
- * Pure CSS — no JS, zero runtime cost. Respects prefers-reduced-motion via globals.
+ * Pure CSS, no JS, zero runtime cost. Respects prefers-reduced-motion via globals.
  */
 export function AuroraBackground({
   children,

@@ -57,7 +57,7 @@ const config: Config = {
           800: "#1e293b",
           900: "#0f172a",
         },
-        // Warm accent — coral/peach, used sparingly for highlights and "human" warmth
+        // Warm accent: coral/peach, used sparingly for highlights and "human" warmth
         coral: {
           50: "#fff5f0",
           100: "#ffe6d9",
@@ -70,7 +70,7 @@ const config: Config = {
           800: "#963113",
           900: "#7a2c14",
         },
-        // Warm neutral palette for sections — replaces cold slate where appropriate
+        // Warm neutral palette for sections: replaces cold slate where appropriate
         sand: {
           50: "#fdfcfa",
           100: "#faf7f2",
@@ -137,10 +137,10 @@ const config: Config = {
           "33%": { transform: "translate(8%, -6%) scale(1.08)" },
           "66%": { transform: "translate(-6%, 8%) scale(0.95)" },
         },
-        // Slow float for decorative pills
+        // Slow float for decorative pills (rotation is handled on a child element)
         float: {
-          "0%, 100%": { transform: "translateY(0) rotate(var(--tw-rotate, 0deg))" },
-          "50%": { transform: "translateY(-14px) rotate(var(--tw-rotate, 0deg))" },
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-14px)" },
         },
         // Shimmer sweep across gradient
         shimmer: {

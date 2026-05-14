@@ -53,7 +53,7 @@ function CompleteInner() {
       setMessage(
         e instanceof Error
           ? e.message
-          : "Verification failed. Your payment may still have gone through — please contact us."
+          : "Verification failed. Your payment may still have gone through. Please contact us."
       );
     }
   };

@@ -95,7 +95,7 @@ export default async function ProductPage({
                 <div className="rounded-lg bg-amber-50 p-4 text-sm text-amber-900 border border-amber-100">
                   <p className="font-medium mb-1">Prescription Required</p>
                   Order prescription items via WhatsApp. Tap the button above to
-                  chat with our pharmacist — we&apos;ll confirm your script and
+                  chat with our pharmacist. We&apos;ll confirm your script and
                   arrange your order.
                 </div>
               )}

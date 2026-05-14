@@ -23,7 +23,7 @@ const STEPS = [
     n: "03",
     icon: Truck,
     title: "Delivered today",
-    body: "Same-day delivery anywhere in Greater Accra. Pay on Paystack, by mobile money, or cash on delivery — your call.",
+    body: "Same-day delivery anywhere in Greater Accra. Pay on Paystack, by mobile money, or cash on delivery. Your choice.",
     accent: "from-sand-200 to-sand-100",
     iconBg: "bg-secondary-900 text-white",
   },

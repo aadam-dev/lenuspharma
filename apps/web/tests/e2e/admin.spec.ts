@@ -40,7 +40,7 @@ test.describe("Admin auth guard", () => {
     // Clear any stored session
     await page.context().clearCookies();
     await page.goto("/admin/orders");
-    // Client-side redirect — wait for navigation
+    // Client-side redirect: wait for navigation
     await expect(page).toHaveURL(/\/admin\/login/, { timeout: 5000 });
   });
 

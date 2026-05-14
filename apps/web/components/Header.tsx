@@ -24,7 +24,7 @@ export function Header() {
 
   return (
     <>
-      {/* Top bar — trust & contact */}
+      {/* Top bar: trust and contact */}
       <div className="bg-primary-900 text-white py-2 text-xs font-medium">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center gap-4">

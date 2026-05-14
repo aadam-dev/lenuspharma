@@ -43,8 +43,8 @@ export function Hero() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-lg md:text-xl text-secondary-600 leading-relaxed mb-10">
-            Genuine medicines, qualified pharmacists, and same-day delivery —
-            all in one calm, careful experience built for how Ghana actually shops.
+            Genuine medicines, qualified pharmacists, and same-day delivery.
+            One calm, careful experience built for how Ghana actually shops.
           </p>
 
           {/* CTAs */}

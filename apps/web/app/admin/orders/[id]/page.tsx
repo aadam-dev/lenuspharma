@@ -281,7 +281,7 @@ export default function AdminOrderDetailPage() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left column — customer + delivery */}
+        {/* Left column: customer and delivery */}
         <div className="space-y-5 lg:col-span-1">
           {/* Customer */}
           <section className="bg-white rounded-xl border border-gray-200 p-5">
@@ -366,7 +366,7 @@ export default function AdminOrderDetailPage() {
           </section>
         </div>
 
-        {/* Right column — items + actions */}
+        {/* Right column: items and actions */}
         <div className="space-y-5 lg:col-span-2">
           {/* Line items */}
           <section className="bg-white rounded-xl border border-gray-200 overflow-hidden">

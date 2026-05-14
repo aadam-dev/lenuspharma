@@ -78,7 +78,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {/* Gradient overlay reveal */}
           <div className="absolute inset-0 bg-gradient-to-t from-secondary-900/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-          {/* Type badge — repositioned and refined */}
+          {/* Type badge */}
           <div className="absolute top-3 left-3">
             {isPOM ? (
               <Badge className="bg-coral-500 hover:bg-coral-600 text-white border-0 shadow-sm font-semibold px-2.5 py-1 text-[10px] uppercase tracking-wider">

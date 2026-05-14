@@ -32,7 +32,7 @@ test.describe("Homepage", () => {
 test.describe("Products page", () => {
   test("loads and shows product listings or empty state", async ({ page }) => {
     await page.goto("/products");
-    // Either products appear or an empty-state message — page must not crash
+    // Either products appear or an empty-state message; page must not crash
     await expect(page.locator("main")).toBeVisible();
     await expect(page).not.toHaveURL(/500|error/i);
   });

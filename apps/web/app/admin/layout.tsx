@@ -168,7 +168,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         />
       )}
 
-      {/* Sidebar — fixed on mobile, static on desktop */}
+      {/* Sidebar: fixed on mobile, static on desktop */}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-200 flex flex-col transition-transform duration-200 ease-in-out",

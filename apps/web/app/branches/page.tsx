@@ -26,7 +26,7 @@ export default async function BranchesPage() {
           </p>
         </div>
 
-        {/* Branch cards — 3-col grid */}
+        {/* Branch cards: 3-col grid */}
         <section className="mb-12">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {branches.length > 0 ? (
@@ -37,7 +37,7 @@ export default async function BranchesPage() {
               <>
                 <BranchCard branch={{
                   id: "1",
-                  name: "Lenus Pharmacy — Botwe 3rd Gate",
+                  name: "Lenus Pharmacy: Botwe 3rd Gate",
                   slug: "botwe-3rd-gate",
                   address: "Ashaley Botwe, 3rd Gate, Greater Accra",
                   phone: "054 832 5792",
@@ -46,7 +46,7 @@ export default async function BranchesPage() {
                 }} />
                 <BranchCard branch={{
                   id: "2",
-                  name: "Lenus Pharmacy — Lakeside Estates",
+                  name: "Lenus Pharmacy: Lakeside Estates",
                   slug: "lakeside-estates",
                   address: "Lakeside Estates, Greater Accra",
                   phone: "054 832 5793",
@@ -55,7 +55,7 @@ export default async function BranchesPage() {
                 }} />
                 <BranchCard branch={{
                   id: "3",
-                  name: "Lenus Pharmacy — Madina",
+                  name: "Lenus Pharmacy: Madina",
                   slug: "madina",
                   address: "Madina, Greater Accra",
                   phone: "054 832 5794",
@@ -67,16 +67,16 @@ export default async function BranchesPage() {
           </div>
         </section>
 
-        {/* Real map locations — same as homepage */}
+        {/* Real map locations: same as homepage */}
         <section className="mb-12">
           <BranchLocator />
         </section>
 
-        {/* Our facilities — polished media cards (replace gradient with real photos when ready) */}
+        {/* Our facilities: polished media cards (replace gradient with real photos when ready) */}
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-foreground mb-2">Our facilities</h2>
           <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
-            A glimpse of our branches. Drop in your own photos in <code className="text-xs bg-muted px-1.5 py-0.5 rounded">public/facilities/</code> when ready — same aspect ratio (16:10) keeps layout consistent.
+            A glimpse of our branches. Drop in your own photos in <code className="text-xs bg-muted px-1.5 py-0.5 rounded">public/facilities/</code> when ready. Same aspect ratio (16:10) keeps layout consistent.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {BRANCHES_WITH_MAPS.map((branch, i) => (
