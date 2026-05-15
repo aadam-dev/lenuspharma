@@ -18,7 +18,7 @@ export function Footer() {
                 <img
                   src="/lenus_logo_clean.png"
                   alt="Lenus Pharmacy Logo"
-                  className="h-8 w-auto object-contain brightness-0 invert"
+                  className="h-8 w-auto object-contain"
                 />
               </div>
               <span className="text-lg font-bold text-white">Lenus Pharmacy</span>
